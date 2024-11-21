@@ -1,0 +1,27 @@
+# Monitoring
+
+Instructions: [Monitoring, Alerting, and Visualization on Azure Arc-enabled servers](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_servers/day2/arc_monitoring)
+
+I updated [monitoring.parameters.json](C:\Code\Repos\GitHub\azure_arc\azure_arc_servers_jumpstart\monitoring\monitoring.parameters.json).
+
+Edit the ARM Template parameters file [monitoring-template.parameters.json]:(C:\Code\Repos\GitHub\azure_arc\azure_arc_servers_jumpstart\monitoring\monitoring-template.parameters.json)
+```powershell
+cd C:\Code\Repos\GitHub\azure_arc\azure_arc_servers_jumpstart\monitoring
+code monitoring-template.parameters.json
+```
+
+Deploy the ARM template [monitoring-template.json](C:\Code\Repos\GitHub\azure_arc\azure_arc_servers_jumpstart\monitoring\monitoring-template.json):
+
+```powershell
+az deployment group create --resource-group $Env:resourceGroupName --template-file monitoring-template.json --parameters monitoring-template.parameters.json
+```
+
+When the deployment is complete, you should be able to see the resource group with your Log Analytics workspace, Azure dashboard, VMInsights solution and three Workbooks.
+
+## Review that all the Azure Monitor deployed resources are configured
+
+- Check the **Policies** blad of the **resource group**, four new policy got added, all named with a prefix **(jumpstart)**
+- Click on the **Agents Configuration** blade of the **Log Analytics workspace**
+- ...
+
+I stopped here.

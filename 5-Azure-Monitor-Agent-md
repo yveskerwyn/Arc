@@ -1,0 +1,64 @@
+# Azure Monitor Agent
+
+Instructions: [Deploy the Azure Monitor Agent (AMA) on Azure Arc-enabled servers](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_servers/day2/arc_azuremonitoragent)
+
+## Deployment Open 2: **ARM template with Azure CLI**.
+
+Update the ARM tempalte parameter file [ama-template.parameters.json](C:\Code\Repos\GitHub\azure_arc\azure_arc_servers_jumpstart\azuremonitoragent\ama-template.parameters.json):
+```powershell
+cd C:\Code\Repos\GitHub\azure_arc\azure_arc_servers_jumpstart\azuremonitoragent\
+code ama-template.parameters.json
+```
+
+I gave a "not so good" name to my Log Analytics workspace: **Arc-Test1**.
+
+Deploy the ARM template [ama-windows-template.json](C:\Code\Repos\GitHub\azure_arc\azure_arc_servers_jumpstart\azuremonitoragent\ama-windows-template.json):
+
+```powershell
+az deployment group create --resource-group $Env:resourceGroupName --template-file ama-windows-template.json --parameters ama-template.parameters.json
+```
+
+Check the resources that got deployed, including the DCR. In the DCR, check under **Configuration**:
+- **Resources**
+- **Data sources**
+
+Also, check the added extension **AzureMonitorWindowsAgent**.
+
+In the Azure Portal check the **Data collection rules**.
+
+Check the **Log Analytics Workspace**, and run following command for the Logs:
+```sql
+search * 
+| distinct Computer, Type
+| where Type != "Heartbeat" and Type != "Usage"
+| sort by Computer asc
+```
+You might need to wait a little and retry, before you actually see results.
+
+
+
+What follows, was a mistake, I used the template and paraneter file in the **monitoring** subfolder, I should have used the instead of ama-*.json files. This should move to another MD. Check following instructions: [Monitoring, Alerting, and Visualization on Azure Arc-enabled servers](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_servers/day2/arc_monitoring)
+
+
+I updated [monitoring.parameters.json](C:\Code\Repos\GitHub\azure_arc\azure_arc_servers_jumpstart\monitoring\monitoring.parameters.json).
+
+```bash
+cd /c/
+cd Code/Repos/GitHub/azure_arc/azure_arc_servers_jumpstart/monitoring
+code monitoring-template.parameters.json
+```
+
+Deploy the ARM template:
+
+```bash
+resourceGroup=Arc-Lab-yvesk1
+az deployment group create --resource-group $resourceGroup \
+--template-file monitoring-template.json \
+--parameters monitoring-template.parameters.json
+```
+
+Check in the Azure Portal what has been deployed.
+
+Somehow I had to enable monitoring manually through the Azure Portal. I navigated to the machinen, then selected **Monitoring** > **Insights** and clicked **Enable**. Only then AMA showed up as an extension.
+
+As it turned out, I deployed the wrong template, see above.

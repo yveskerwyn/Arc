@@ -48,7 +48,7 @@ Also recommended:
 
 ## Azure hosted Windows VM
 
-First create a virtual machine, using [new_vm.ps1](scripts\new_vm.ps1):
+First create a virtual machine, using [new_vm.ps1](.\scripts\new_vm.ps1):
 ```powershell
 . .\scripts\new_vl.ps1
 ```

@@ -58,7 +58,12 @@ Create a resource group and start the deployment:
 ```powershell
 resourceGroupName="arcBox1"
 az group create --name $resourceGroupName --location "westeurope"
-az deployment group create -g $resourceGroupName -f "main.bicep" -p "main.bicepparam"
+az deployment group create -g $resourceGroupName -f "main.bicep" -p "main.bicepparam" 
+```
+
+Or in case of using spot pricing: 
+```powershell
+az deployment group create -g "arcBox1" -f "main.bicep" -p "main.bicepparam" -p enableAzureSpotPricing=true
 ```
 
 Innitialy I got an error about `autoShutdownTimezone` parameter, I specified **CET**, I had to change it to:

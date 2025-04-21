@@ -2,7 +2,7 @@
 
 In order to use the **Entra ID based SSH Login**, we first need to install the **AADSSHLogin** *Azure Arc VM extension*:
 ```powershell
-$Env:resourceGroupName = "arcBox1"
+$Env:resourceGroupName = "Arc-Box1"
 $Env:azureLocation = "westeurope"
 $serverName = "contoso-Ubuntu-01"
 
@@ -34,7 +34,7 @@ code Microsoft.PowerShell_profile.ps1
 
 I added:
 ```powershell
-$Env:resourceGroupName = "ArcBox1"
+$Env:resourceGroupName = "Arc-Box1"
 $Env:azureLocation = "westeurope"
 ```
 

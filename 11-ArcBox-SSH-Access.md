@@ -2,7 +2,7 @@
 
 On the **Contoso-Client** VM I tested SSH, using "az ssh arc", which allows to establish a secure shell (SSH) connection to my Azure Arc-enabled servers without requiring a public IP address or additional open ports:
 ```powershell
-$Env:resourceGroupName="arcBox1"
+$Env:resourceGroupName="Arc-Box1"
 $serverName="contoso-Ubuntu-01"
 $localUser="jumpstart"
 az ssh arc --resource-group $Env:resourceGroupName --name $serverName --local-user $localUser

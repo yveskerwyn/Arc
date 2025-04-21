@@ -30,16 +30,17 @@ az upgrade
 
 You can also use the Azure CLI directly in the Azure Cloud Shell, which is a browser-based shell that doesn't require installation. Just navigate to https://shell.azure.comand start using the CLI.
 
+Create an Azure service principal (SP):
 ```powershell
 az login
 $subscriptionId=$(az account show --query id --output tsv)
-az ad sp create-for-rbac -n "JumpstartArc" --role "Contributor" --scopes "subscriptions/$subscriptionId/resourceGroups/$Env:resourceGroupName"
+az ad sp create-for-rbac -n "JumpstartArc" --role "Contributor" --scopes "subscriptions/$subscriptionId"
 ```
 
-```powershelll
-  az provider register --namespace 'Microsoft.HybridCompute'
-  az provider register --namespace 'Microsoft.GuestConfiguration'
-  az provider register --namespace 'Microsoft.HybridConnectivity'
+```powershell
+az provider register --namespace 'Microsoft.HybridCompute'
+az provider register --namespace 'Microsoft.GuestConfiguration'
+az provider register --namespace 'Microsoft.HybridConnectivity'
 ```
 
 Also recommended:

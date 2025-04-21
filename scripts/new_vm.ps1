@@ -1,4 +1,4 @@
-$vmName="ServerVM1"
+$vmName="ServerVM2"
 
 # CREATE RESOURCE GROUP
 az group create --name $Env:resourceGroupName --location $Env:azureLocation

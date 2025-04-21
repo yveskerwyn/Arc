@@ -37,6 +37,8 @@ $subscriptionId=$(az account show --query id --output tsv)
 az ad sp create-for-rbac -n "JumpstartArc" --role "Contributor" --scopes "subscriptions/$subscriptionId"
 ```
 
+Copy the appId, password and tenant for later use in `azuredeploy.parameters.json`.
+
 ```powershell
 az provider register --namespace 'Microsoft.HybridCompute'
 az provider register --namespace 'Microsoft.GuestConfiguration'
@@ -47,7 +49,29 @@ Also recommended:
 - [Visual Code](https://code.visualstudio.com/download)
 - [Git](https://git-scm.com/downloads)
 
-## Azure hosted Windows VM
+
+## Using ARM template with Azure CLI to deploy Windows VM
+
+Instructions: [Deploy a Windows Azure Virtual Machine and connect it to Azure Arc using an ARM Template](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_servers/azure/azure_arm_template_win)
+
+First create the resource group:
+```powershell
+az group create --name $Env:resourceGroupName --location $Env:azureLocation --tags "Project=jumpstart_azure_arc_servers"
+```
+
+Clone the Arc Jumpstart GitHub repository:
+```powershell
+git clone https://github.com/microsoft/azure_arc.git
+```
+
+Update `azuredeploy.parameters.json`.
+
+Start the deployment from the deployment folder `azure_arc_servers_jumpstart\azure\windows\arm_template`:
+```powershell
+az deployment group create --resource-group $Env:resourceGroupName --name "Deployment1" --template-uri https://raw.githubusercontent.com/microsoft/azure_arc/main/azure_arc_servers_jumpstart/azure/windows/arm_template/azuredeploy.json --parameters azuredeploy.parameters.json
+```
+
+## Or alternativelly, do it it manually
 
 First create a virtual machine, using [new_vm.ps1](./scripts/new_vm.ps1):
 ```powershell
@@ -129,6 +153,3 @@ In order to run it you might first need to change the **Execution Policy**:
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
 
-## Deploy a Windows Azure Virtual Machine and connect it to Azure Arc using an ARM Template
-
-Instructions: [Deploy a Windows Azure Virtual Machine and connect it to Azure Arc using an ARM Template](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_servers/azure/azure_arm_template_win)
